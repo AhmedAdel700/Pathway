@@ -5,6 +5,7 @@ import Products from "@/app/sections/Products";
 import Pricing from "@/app/sections/Pricing";
 import Testimonials from "@/app/sections/Testimonials";
 import CallToAction from "@/app/sections/CallToAction";
+import Footer from "@/app/sections/Footer";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Pricing />
       <Testimonials />
       <CallToAction />
+      <Footer />
     </>
   );
 }
