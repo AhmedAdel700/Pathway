@@ -18,11 +18,10 @@ export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
 
-const toggleLang = useCallback((): void => {
-  const next = locale === "en" ? "ar" : "en";
-  router.push(pathname, { locale: next });
-}, [router, pathname, locale]);
-
+  const toggleLang = useCallback((): void => {
+    const next = locale === "en" ? "ar" : "en";
+    router.push(pathname, { locale: next });
+  }, [router, pathname, locale]);
 
   // Scroll lock on open
   useEffect(() => {
@@ -98,13 +97,15 @@ const toggleLang = useCallback((): void => {
       {/* Main bar */}
       <div className="py-4 sm:py-5">
         <div className="container px-4 mx-auto flex items-center justify-between">
-          <Image
-            src={Logo}
-            alt="Logo"
-            className="inline-flex justify-center items-center"
-            width={40}
-            height={40}
-          />
+          <div className="inline-flex relative before:absolute before:content-[''] before:top-2 before:bottom-0 before:blur before:w-full before:bg-[linear-gradient(to_right,#F87BFF,#FB92CF,#FFDD9B,#C2F0B1,#2FD8FE)]">
+            <Image
+              src={Logo}
+              alt="Logo"
+              className="inline-flex justify-center items-center relative cursor-pointer"
+              width={40}
+              height={40}
+            />
+          </div>
 
           {/* Mobile trigger */}
           <button

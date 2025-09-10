@@ -3,13 +3,25 @@ import { ArrowRight } from "lucide-react";
 import HeroImage1 from "@/app/assets/Visual.svg";
 import HeroImage2 from "@/app/assets/cylinder 1.svg";
 import HeroImage3 from "@/app/assets/half-torus 1.svg";
-import Image from "next/image";
 import { useLocale } from "next-intl";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function Hero() {
   const locale = useLocale();
+  const heroRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start end", "end start"],
+  });
+
+  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
   return (
-    <section className="pt-8 sm:pt-5 sm:pb-10 xl:pt-20 pb-20 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_75%)] xl:bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_75%)] h-fit xl:min-h-[calc(100vh-123px)] overflow-x-clip">
+    <section
+      ref={heroRef}
+      className="pt-8 sm:pt-5 sm:pb-10 xl:pt-20 pb-20 bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_75%)] xl:bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_75%)] h-fit xl:min-h-[calc(100vh-123px)] overflow-x-clip"
+    >
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-center xl:justify-between items-center gap-6 xl:gap-0">
         <div className="flex flex-col gap-6 md:w-[478px] xl:w-full">
           <div className="tag">Version 2.0 Is Here</div>
@@ -29,17 +41,26 @@ export default function Hero() {
           </div>
         </div>
         <div className="md:flex-1 xl:flex-0 md:h-[648px] relative">
-          <Image
-            src={HeroImage1}
+          <motion.img
+            src={HeroImage1.src}
             alt="Hero Section Image 1"
             className={`md:absolute md:h-full md:w-auto md:max-w-none xl:relative ${
               locale === "ar"
                 ? "scale-x-[-1] md:-right-6 lg:right-0"
                 : "md:-left-6 lg:left-0"
             } `}
+            animate={{
+              translateY: [-30, 30],
+            }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "mirror",
+              duration: 3,
+              ease: "easeInOut",
+            }}
           />
-          <Image
-            src={HeroImage2}
+          <motion.img
+            src={HeroImage2.src}
             alt="Hero Section Image 2"
             className={`hidden md:block md:absolute top-1 xl:-top-8 ${
               locale === "ar"
@@ -48,15 +69,21 @@ export default function Hero() {
             }`}
             width={220}
             height={220}
+            style={{
+              translateY: translateY,
+            }}
           />
-          <Image
-            src={HeroImage3}
+          <motion.img
+            src={HeroImage3.src}
             alt="Hero Section Image 3"
             className={`hidden xl:block md:absolute top-[565] ${
               locale === "ar" ? "scale-x-[-1] right-[448px]" : "left-[448px]"
             }`}
             width={220}
             height={220}
+            style={{
+              translateY: translateY,
+            }}
           />
         </div>
       </div>
